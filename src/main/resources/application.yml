@@ -1,0 +1,27 @@
+server:
+    port: 8080
+
+spring:
+    application:
+        name: test-stream-word-counter
+    cloud.stream.bindings:
+        linesOut:
+            destination: test-messages
+        linesIn:
+            destination: test-messages
+        wcout:
+            destination: test-wordCount
+        wcin:
+            destination: test-wordCount
+    cloud:
+        stream:
+            kafka:
+                streams:
+                    binder:
+                        configuration:
+                            commit.interval.ms: 3000
+                    bindings:
+                        wcin:
+                            consumer.applicationId: sinker
+                        wcout:
+                            consumer.applicationId: counter
